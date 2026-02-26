@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Indian Portrait Prompt Builder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="hero card">
+        <div>
+          <p class="eyebrow">Prompt Toolkit</p>
+          <h1>Photorealistic Indian Portrait Prompt Builder</h1>
+          <p class="muted">
+            Plug values into the master template, preview instantly, and copy either the final prompt text or structured JSON.
+          </p>
+        </div>
+      </header>
+
+      <section class="layout">
+        <div class="card panel">
+          <div class="panel-head">
+            <h2>Attributes</h2>
+            <button id="resetBtn" class="btn btn-ghost" type="button">Reset</button>
+          </div>
+          <form id="attributesForm" class="form-grid" novalidate></form>
+          <div class="panel-foot">
+            <button id="generateBtn" class="btn btn-primary" type="button">Generate Output</button>
+          </div>
+        </div>
+
+        <div class="stack">
+          <div class="card panel">
+            <div class="panel-head">
+              <h2>Prompt</h2>
+              <button id="copyPromptBtn" class="btn btn-secondary" type="button">Copy Prompt</button>
+            </div>
+            <textarea id="promptOutput" class="output" readonly></textarea>
+          </div>
+
+          <div class="card panel">
+            <div class="panel-head">
+              <h2>JSON</h2>
+              <button id="copyJsonBtn" class="btn btn-secondary" type="button">Copy JSON</button>
+            </div>
+            <textarea id="jsonOutput" class="output output-code" readonly></textarea>
+          </div>
+
+          <p id="status" class="status muted" aria-live="polite"></p>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="src/main.js"></script>
+  </body>
+</html>
