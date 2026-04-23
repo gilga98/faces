@@ -249,5 +249,29 @@ export const options = {
     "Thin metal frame glasses",
     "Thick black frame glasses",
     "Turban (Sikh)"
+  ],
+  setting: [
+    "Urban street",
+    "Traditional Indian home interior",
+    "Lush garden/nature background",
+    "Minimalist studio background",
+    "Modern cafe",
+    "Corporate office environment",
+    "Grand wedding venue",
+    "Historical Indian monument",
+    "Local marketplace (Bazaar)",
+    "Rainy evening street"
+  ],
+  pose: [
+    "Standing straight facing camera",
+    "Sitting relaxed on a chair",
+    "Three-quarter profile view",
+    "Looking slightly away from camera",
+    "Candid laugh looking sideways",
+    "Hands in pockets",
+    "Folding arms confidently",
+    "Adjusting an accessory/glasses",
+    "Walking towards the camera",
+    "Sitting on a traditional rug"
   ]
 };

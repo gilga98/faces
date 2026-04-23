@@ -42,6 +42,7 @@ Hair is ${pick(values, "hairDensity")}, ${pick(values, "hairTexture")}, colored 
 Facial hair (if applicable): ${pick(values, "facialHairType")}.
 
 Wearing ${pick(values, "clothingStyle")} with ${pick(values, "accessories")}.
+Posed as ${pick(values, "pose")}, situated in a ${pick(values, "setting")}.
 
 ${pick(values, "photoStyleTail", "")}`;
 
@@ -96,6 +97,8 @@ export const buildPromptJson = (values) => ({
     facial_hair: pick(values, "facialHairType"),
     clothing_style: pick(values, "clothingStyle"),
     accessories: pick(values, "accessories"),
+    setting: pick(values, "setting"),
+    pose: pick(values, "pose"),
     photo_style_tail: pick(values, "photoStyleTail"),
     negative_prompt: pick(values, "negativePrompt", "")
   }

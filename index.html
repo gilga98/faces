@@ -32,6 +32,7 @@
           </div>
           <form id="attributesForm" class="form-grid" novalidate></form>
           <div class="panel-foot">
+            <button id="variationsBtn" class="btn btn-secondary" type="button" style="margin-right: 0.5rem;">Generate Variations</button>
             <button id="generateBtn" class="btn btn-primary" type="button">Generate Output</button>
           </div>
         </div>
@@ -56,8 +57,31 @@
           <p id="status" class="status muted" aria-live="polite"></p>
         </div>
       </section>
+      <section class="layout">
+        <div class="card panel bulk-panel">
+          <div class="panel-head">
+            <h2>Bulk Generation</h2>
+          </div>
+          <div class="bulk-form">
+            <div class="field">
+              <label for="bulkCount">Number of JSONs</label>
+              <input type="number" id="bulkCount" value="10" min="1" max="100" class="input" />
+            </div>
+            <div class="field">
+              <label for="bulkGender">Gender Preference</label>
+              <select id="bulkGender" class="select">
+                <option value="Mixed">Mixed</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+            <button id="bulkGenerateBtn" class="btn btn-primary" type="button">Generate & Download ZIP</button>
+          </div>
+        </div>
+      </section>
     </main>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script type="module" src="src/main.js"></script>
   </body>
 </html>

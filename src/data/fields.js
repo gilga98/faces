@@ -60,6 +60,13 @@ export const fieldGroups = [
     ]
   },
   {
+    title: "Context & Pose",
+    fields: [
+      field("setting", "Setting / Background", options.setting, "Urban street"),
+      field("pose", "Pose / Action", options.pose, "Standing straight facing camera")
+    ]
+  },
+  {
     title: "Optional Prompt Controls",
     fields: [
       {
