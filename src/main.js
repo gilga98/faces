@@ -9,7 +9,6 @@ import { downloadZippedJsons } from "./utils/zipUtils.js";
 const formEl = document.querySelector("#attributesForm");
 const promptOutputEl = document.querySelector("#promptOutput");
 const jsonOutputEl = document.querySelector("#jsonOutput");
-const generateBtn = document.querySelector("#generateBtn");
 const copyPromptBtn = document.querySelector("#copyPromptBtn");
 const copyJsonBtn = document.querySelector("#copyJsonBtn");
 const resetBtn = document.querySelector("#resetBtn");
@@ -23,7 +22,11 @@ const bulkGenderSelect = document.querySelector("#bulkGender");
 
 const setStatus = (text, isError = false) => {
   statusEl.textContent = text;
-  statusEl.style.color = isError ? "#b91c1c" : "#475569";
+  statusEl.className = `alert ${isError ? 'alert-error' : 'alert-info'} py-2 text-xs font-semibold shadow-inner transition-all duration-300 transform scale-105`;
+  
+  setTimeout(() => {
+    statusEl.classList.remove('scale-105');
+  }, 150);
 };
 
 const generateOutputs = () => {
@@ -55,17 +58,28 @@ formEl.addEventListener("input", () => {
   generateOutputs();
 });
 
-generateBtn.addEventListener("click", () => {
-  generateOutputs();
-  setStatus("Prompt and JSON regenerated.");
-});
+// Removed manual generateBtn listener as outputs update automatically on input.
 
 variationsBtn.addEventListener("click", () => {
-  const currentValues = readFormValues(formEl);
-  const variationValues = generateVariationValues(currentValues);
-  hydrateFormValues(formEl, variationValues);
-  generateOutputs();
-  setStatus("Generated variations for the current face.");
+  variationsBtn.classList.add("loading");
+  
+  setTimeout(() => {
+    const currentValues = readFormValues(formEl);
+    const variationValues = generateVariationValues(currentValues);
+    hydrateFormValues(formEl, variationValues);
+    generateOutputs();
+    
+    // Add highlight animation to all inputs
+    const inputs = formEl.querySelectorAll("input, select, textarea");
+    inputs.forEach(input => {
+      input.classList.remove("field-highlight");
+      void input.offsetWidth; // Trigger reflow
+      input.classList.add("field-highlight");
+    });
+
+    variationsBtn.classList.remove("loading");
+    setStatus("Generated variations for the current face.");
+  }, 300);
 });
 
 
