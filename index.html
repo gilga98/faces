@@ -10,73 +10,93 @@
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap"
       rel="stylesheet"
     />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.10.2/dist/full.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
-    <main class="page">
-      <header class="hero card">
-        <div>
-          <p class="eyebrow">Prompt Toolkit</p>
-          <h1>Photorealistic Indian Portrait Prompt Builder</h1>
-          <p class="muted">
-            Plug values into the master template, preview instantly, and copy either the final prompt text or structured JSON.
-          </p>
+  <body class="min-h-screen bg-base-300 transition-colors duration-500" data-theme="dim">
+    <main class="container mx-auto p-4 md:p-8 space-y-8">
+      <header class="card bg-gradient-to-br from-primary/20 to-secondary/20 shadow-2xl border border-white/10 backdrop-blur-md">
+        <div class="card-body">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <p class="text-xs font-bold uppercase tracking-widest text-primary mb-2">Prompt Toolkit</p>
+              <h1 class="text-3xl md:text-5xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
+                Indian Portrait Prompt Builder
+              </h1>
+              <p class="text-base-content/70 mt-2 max-w-2xl">
+                Plug values into the master template, preview instantly, and copy either the final prompt text or structured JSON.
+              </p>
+            </div>
+            <div class="flex gap-2">
+              <button id="resetBtn" class="btn btn-ghost btn-sm" type="button">Reset</button>
+            </div>
+          </div>
         </div>
       </header>
 
-      <section class="layout">
-        <div class="card panel">
-          <div class="panel-head">
-            <h2>Attributes</h2>
-            <button id="resetBtn" class="btn btn-ghost" type="button">Reset</button>
-          </div>
-          <form id="attributesForm" class="form-grid" novalidate></form>
-          <div class="panel-foot">
-            <button id="variationsBtn" class="btn btn-secondary" type="button" style="margin-right: 0.5rem;">Generate Variations</button>
-            <button id="generateBtn" class="btn btn-primary" type="button">Generate Output</button>
+      <section class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+        <!-- Attributes Form Panel -->
+        <div class="xl:col-span-2 card bg-base-100 shadow-xl border border-base-content/5">
+          <div class="card-body p-0">
+            <div class="flex items-center justify-between px-8 py-6 border-b border-base-content/5">
+              <h2 class="card-title text-xl font-bold">Attributes</h2>
+              <div class="flex gap-2">
+                <button id="variationsBtn" class="btn btn-secondary btn-sm" type="button">Randomize Face</button>
+                <button id="generateBtn" class="btn btn-primary btn-sm px-6" type="button">Generate Output</button>
+              </div>
+            </div>
+            <div class="p-8">
+              <form id="attributesForm" class="grid grid-cols-1 md:grid-cols-2 gap-6" novalidate></form>
+            </div>
           </div>
         </div>
 
-        <div class="stack">
-          <div class="card panel">
-            <div class="panel-head">
-              <h2>Prompt</h2>
-              <button id="copyPromptBtn" class="btn btn-secondary" type="button">Copy Prompt</button>
+        <!-- Output Panel -->
+        <div class="space-y-8">
+          <div class="card bg-base-100 shadow-xl border border-base-content/5">
+            <div class="card-body">
+              <div class="flex items-center justify-between mb-4">
+                <h2 class="card-title text-lg">Prompt</h2>
+                <button id="copyPromptBtn" class="btn btn-primary btn-outline btn-xs" type="button">Copy</button>
+              </div>
+              <textarea id="promptOutput" class="textarea textarea-bordered h-48 font-medium leading-relaxed" readonly></textarea>
             </div>
-            <textarea id="promptOutput" class="output" readonly></textarea>
           </div>
 
-          <div class="card panel">
-            <div class="panel-head">
-              <h2>JSON</h2>
-              <button id="copyJsonBtn" class="btn btn-secondary" type="button">Copy JSON</button>
+          <div class="card bg-base-100 shadow-xl border border-base-content/5">
+            <div class="card-body">
+              <div class="flex items-center justify-between mb-4">
+                <h2 class="card-title text-lg">JSON</h2>
+                <button id="copyJsonBtn" class="btn btn-primary btn-outline btn-xs" type="button">Copy</button>
+              </div>
+              <textarea id="jsonOutput" class="textarea textarea-bordered h-48 font-mono text-xs" readonly></textarea>
             </div>
-            <textarea id="jsonOutput" class="output output-code" readonly></textarea>
           </div>
 
-          <p id="status" class="status muted" aria-live="polite"></p>
+          <div id="status" class="alert alert-info py-2 text-xs font-semibold shadow-inner opacity-0 transition-opacity duration-300"></div>
         </div>
       </section>
-      <section class="layout">
-        <div class="card panel bulk-panel">
-          <div class="panel-head">
-            <h2>Bulk Generation</h2>
+
+      <!-- Bulk Generation Section -->
+      <section class="card bg-base-200 shadow-xl border border-base-content/5 overflow-hidden">
+        <div class="bg-gradient-to-r from-primary/10 to-transparent px-8 py-4 border-b border-base-content/5">
+          <h2 class="text-lg font-bold">Bulk Generation</h2>
+        </div>
+        <div class="card-body md:flex-row items-end gap-6">
+          <div class="form-control w-full md:w-auto">
+            <label class="label"><span class="label-text font-bold">Number of JSONs</span></label>
+            <input type="number" id="bulkCount" value="10" min="1" max="100" class="input input-bordered w-full md:w-32" />
           </div>
-          <div class="bulk-form">
-            <div class="field">
-              <label for="bulkCount">Number of JSONs</label>
-              <input type="number" id="bulkCount" value="10" min="1" max="100" class="input" />
-            </div>
-            <div class="field">
-              <label for="bulkGender">Gender Preference</label>
-              <select id="bulkGender" class="select">
-                <option value="Mixed">Mixed</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-              </select>
-            </div>
-            <button id="bulkGenerateBtn" class="btn btn-primary" type="button">Generate & Download ZIP</button>
+          <div class="form-control w-full md:w-auto">
+            <label class="label"><span class="label-text font-bold">Gender Preference</span></label>
+            <select id="bulkGender" class="select select-bordered w-full md:w-48">
+              <option value="Mixed">Mixed</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
           </div>
+          <button id="bulkGenerateBtn" class="btn btn-primary flex-1 md:flex-none px-8" type="button">Generate & Download ZIP</button>
         </div>
       </section>
     </main>

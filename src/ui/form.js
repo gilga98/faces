@@ -1,15 +1,15 @@
 const createField = (field) => {
   const wrap = document.createElement("div");
-  wrap.className = "field";
+  wrap.className = "form-control w-full";
 
   const label = document.createElement("label");
-  label.htmlFor = field.id;
-  label.textContent = field.label;
+  label.className = "label";
+  label.innerHTML = `<span class="label-text font-bold text-base-content/70">${field.label}</span>`;
   wrap.appendChild(label);
 
   if (field.options?.length) {
     const select = document.createElement("select");
-    select.className = "select";
+    select.className = "select select-bordered select-sm w-full bg-base-200 focus:select-primary transition-all";
     select.id = field.id;
     select.name = field.id;
     select.required = true;
@@ -35,10 +35,10 @@ const createField = (field) => {
   }
 
   const textarea = document.createElement("textarea");
-  textarea.className = "input";
+  textarea.className = "textarea textarea-bordered textarea-sm w-full bg-base-200 focus:textarea-primary transition-all";
   textarea.id = field.id;
   textarea.name = field.id;
-  textarea.rows = field.id === "negativePrompt" ? 4 : 5;
+  textarea.rows = field.id === "negativePrompt" ? 3 : 4;
   textarea.value = field.defaultValue || "";
   wrap.appendChild(textarea);
 
@@ -49,15 +49,16 @@ export const renderForm = (formEl, groups) => {
   formEl.innerHTML = "";
 
   groups.forEach((group) => {
-    const section = document.createElement("section");
-    section.className = "group";
+    const section = document.createElement("div");
+    section.className = "md:col-span-2 mt-4 first:mt-0";
 
     const title = document.createElement("h3");
+    title.className = "text-xs font-black uppercase tracking-widest text-secondary mb-4 flex items-center gap-2 after:content-[''] after:h-px after:flex-1 after:bg-base-content/10";
     title.textContent = group.title;
     section.appendChild(title);
 
     const fieldsWrap = document.createElement("div");
-    fieldsWrap.className = "group-fields";
+    fieldsWrap.className = "grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4";
 
     group.fields.forEach((field) => {
       fieldsWrap.appendChild(createField(field));
